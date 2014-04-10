@@ -3,4 +3,6 @@ leetcode-parlin
 
 leetcode-parlin
 
-use cpp to solve interview problems
+use cpp(a little python) to solve interview problems
+
+uh-oh~
