@@ -16,4 +16,6 @@
 
 using namespace std;
 
+#define show(x) cerr << #x << ": " << x << endl
+
 #endif
