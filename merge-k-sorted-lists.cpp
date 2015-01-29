@@ -1,6 +1,6 @@
 #include "header.h"
 
-class Solution {
+/*class Solution {
 public:
     ListNode *mergeKLists(vector<ListNode *> &lists) {
         ListNode * head = NULL, * biu = NULL;
@@ -38,6 +38,41 @@ public:
         }
         return head;
     }
+};*/
+
+//  its first element is always the greatest of the elements it contains
+struct Order { // comparitor
+    bool operator () (ListNode * const & a, ListNode * const & b) { return a->val > b->val; }
+};
+
+class Solution {
+    public:
+
+        ListNode *mergeKLists(vector<ListNode *> &lists) {
+            priority_queue <ListNode *, vector <ListNode *>, Order> q;
+            ListNode * ret = NULL, * cur = ret;
+            for(auto idx: lists) {
+                if(idx != NULL) {
+                    q.push(idx);
+                }
+            }
+            while(!q.empty()) {
+                ListNode * min = q.top();
+                q.pop();
+                if(cur == NULL) {
+                    ret = new ListNode(min->val);
+                    cur = ret;
+                } else {
+                    cur->next = new ListNode(min->val);
+                    cur = cur->next;
+                }
+                min = min->next;
+                if(min != NULL) {
+                    q.push(min);
+                }
+            }
+            return ret;
+        }
 };
 
 int main() {
