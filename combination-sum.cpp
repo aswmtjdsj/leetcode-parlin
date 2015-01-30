@@ -2,17 +2,18 @@
 
 class Solution {
     public:
-        void dfs(int cur, vector <int> &C, set < vector <int> > & s, vector <int> & temp) {
+        void dfs(int cur, vector <int> &C, vector < vector <int> > & s, vector <int> & temp) {
             if(cur == 0) {
                 vector <int> gogogo = temp;
                 sort(gogogo.begin(), gogogo.end());
-                if(s.find(temp) == s.end()) {
-                    s.insert(gogogo);
-                    return ;
-                }
+                //if(s.find(temp) == s.end()) {
+                //s.insert(gogogo);
+                s.push_back(gogogo);
+                return ;
+                //}
             }
             for(auto i: C) {
-                if(cur - i >= 0) {
+                if(cur - i >= 0 && ((temp.size() == 0) || (temp.size() > 0 && i <= temp.back()))) {
                     temp.push_back(i);
                     dfs(cur-i, C, s, temp);
                     temp.pop_back();
@@ -20,14 +21,14 @@ class Solution {
             }
         }
         vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
-            sort(candidates.begin(), candidates.end());
-            set < vector<int> > s;
+            sort(candidates.rbegin(), candidates.rend()); // in the descending order, no need to judge duplication
+            //set < vector<int> > s;
             vector < vector<int> > ans;
             vector <int> temp;
-            dfs(target, candidates, s, temp);
-            for(auto i: s) {
-                ans.push_back(i);
-            }
+            dfs(target, candidates, ans, temp);
+            /*for(auto i: s) {
+              ans.push_back(i);
+              }*/
             return ans;
         }
 };
